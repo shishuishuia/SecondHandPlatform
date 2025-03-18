@@ -1,7 +1,11 @@
 spring:
+  profiles:
+    active: default
   application:
     name: backend
   datasource:
     url: jdbc:mysql://localhost:3306/secondhandplatform
     username: root
     password: root
+server:
+  port: 8080

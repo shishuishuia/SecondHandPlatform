@@ -12,6 +12,6 @@ class BackendApplicationTests {
 
     @Test
     void connectMysql() {
-
+        System.out.println("heloow");
     }
 }
