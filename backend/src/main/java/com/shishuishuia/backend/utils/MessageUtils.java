@@ -22,4 +22,5 @@ public class MessageUtils {
         resultMassage.setMessage(message);
         return JSON.toJSONString(resultMassage);
     }
+
 }

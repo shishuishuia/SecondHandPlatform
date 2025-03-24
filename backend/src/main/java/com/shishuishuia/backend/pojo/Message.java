@@ -15,4 +15,5 @@ import lombok.Data;
 public class Message {
     private String toName;
     private String message;
+
 }

@@ -104,4 +104,5 @@ public class ChatEndpooint {
         broadcastAllUsers(message);
 
     }
+
 }

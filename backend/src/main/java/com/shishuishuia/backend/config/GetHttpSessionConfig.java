@@ -28,4 +28,6 @@ public class GetHttpSessionConfig extends ServerEndpointConfig.Configurator {
         sec.getUserProperties().put(HttpSession.class.getName(),httpSession);
         super.modifyHandshake(sec, request, response);
     }
+
 }
+
