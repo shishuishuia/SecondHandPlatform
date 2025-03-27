@@ -25,10 +25,10 @@ public class UserController {
         return "nihao";
     }
 
-    @PostMapping("/register")
-    public Result register(@RequestBody User user) {
-
-        return Result.ok("a");
-
-    }
+//    @PostMapping("/register")
+//    public Result register(@RequestBody User user) {
+//
+//        return Result.ok("a");
+//
+//    }
 }
