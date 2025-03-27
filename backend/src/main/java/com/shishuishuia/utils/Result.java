@@ -1,4 +1,4 @@
-package com.shishuishuia.backend.utils;
+package com.shishuishuia.utils;
 
 /**
  * @author 晓梦之尘

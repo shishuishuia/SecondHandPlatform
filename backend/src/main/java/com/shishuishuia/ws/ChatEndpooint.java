@@ -1,9 +1,9 @@
-package com.shishuishuia.backend.ws;
+package com.shishuishuia.ws;
 
 import com.alibaba.fastjson.JSON;
-import com.shishuishuia.backend.config.GetHttpSessionConfig;
-import com.shishuishuia.backend.pojo.Message;
-import com.shishuishuia.backend.utils.MessageUtils;
+import com.shishuishuia.config.GetHttpSessionConfig;
+import com.shishuishuia.pojo.Message;
+import com.shishuishuia.utils.MessageUtils;
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;

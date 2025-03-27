@@ -1,4 +1,4 @@
-package com.shishuishuia.backend.config;
+package com.shishuishuia.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

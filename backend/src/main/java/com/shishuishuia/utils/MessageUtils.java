@@ -1,7 +1,7 @@
-package com.shishuishuia.backend.utils;
+package com.shishuishuia.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.shishuishuia.backend.ws.ResultMessage;
+import com.shishuishuia.ws.ResultMessage;
 
 /**
  * @author 晓梦之尘

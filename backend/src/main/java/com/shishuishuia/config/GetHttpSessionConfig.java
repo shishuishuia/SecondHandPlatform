@@ -1,4 +1,4 @@
-package com.shishuishuia.backend.config;
+package com.shishuishuia.config;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.HandshakeResponse;

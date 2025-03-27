@@ -1,4 +1,4 @@
-package com.shishuishuia.backend.utils;
+package com.shishuishuia.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;

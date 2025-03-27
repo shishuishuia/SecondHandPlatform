@@ -1,4 +1,4 @@
-package com.shishuishuia.backend.pojo;
+package com.shishuishuia.pojo;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.shishuishuia.backend.utils;
+package com.shishuishuia.utils;
 
 /**
  * 统一返回结果状态信息类

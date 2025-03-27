@@ -1,4 +1,4 @@
-package com.shishuishuia.backend.ws;
+package com.shishuishuia.ws;
 
 import lombok.Data;
 
