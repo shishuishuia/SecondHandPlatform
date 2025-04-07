@@ -2,6 +2,8 @@ package com.shishuishuia.pojo;
 
 import lombok.Data;
 
+import java.sql.Date;
+
 /**
  * @author 晓梦之尘
  * more about author: www.shuishuia.cn
@@ -19,6 +21,7 @@ public class User {
     private String username;
     private String password;
     private String gender;
-    private String avatar;
+    private String avatar_url;
     private String location;
+    private Date registered_at;
 }

@@ -1,8 +1,12 @@
 package com.shishuishuia.controller;
 
+import com.shishuishuia.Service.UserService;
 import com.shishuishuia.pojo.User;
 import com.shishuishuia.utils.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @author 晓梦之尘
@@ -18,17 +22,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    private UserService userService;
+
     @ResponseBody
     @PostMapping("/login")
-    public String login(@RequestBody User user){
-        System.out.println(user.toString());
-        return "nihao";
+    public Result login(@RequestBody User user){
+
+        String username = user.getUsername();
+        String password = user.getPassword();
+
+        User login = userService.login(username, password);
+        System.out.println(login);
+        return Result.ok("yes");
     }
 
-//    @PostMapping("/register")
-//    public Result register(@RequestBody User user) {
-//
-//        return Result.ok("a");
-//
-//    }
 }

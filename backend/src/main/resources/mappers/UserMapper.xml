@@ -5,4 +5,10 @@
 
 <mapper namespace="com.shishuishuia.mapper.UserMapper">
 
+
+    <select id="login" resultType="com.shishuishuia.pojo.User">
+        select *
+        from user
+        where username= #{username} and password =#{password}
+    </select>
 </mapper>
