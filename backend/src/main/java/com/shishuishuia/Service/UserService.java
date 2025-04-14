@@ -10,10 +10,12 @@ package com.shishuishuia.Service;
  */
 
 import com.shishuishuia.pojo.User;
+import com.shishuishuia.utils.Result;
 import org.springframework.stereotype.Service;
 
 
 public interface UserService {
 
-    public User login(String username, String password);
+    public Result login(String username, String password);
+    public Result register(User user);
 }

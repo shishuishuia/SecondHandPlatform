@@ -32,9 +32,15 @@ public class UserController {
         String username = user.getUsername();
         String password = user.getPassword();
 
-        User login = userService.login(username, password);
-        System.out.println(login);
-        return Result.ok("yes");
+        System.out.println( username+password);
+        Result result = userService.login(username, password);
+        return result;
     }
 
+    @ResponseBody
+    @PostMapping("/register")
+    public Result register(@RequestBody User user) {
+        System.out.println(user);
+        return Result.ok("ok");
+    }
 }

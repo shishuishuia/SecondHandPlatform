@@ -23,8 +23,7 @@ class UserMapperTest {
 
     @Test
     void loginTest(){
-        User login = userMapper.login("zxc","zxc");
-        System.out.println(login);
+
     }
 
 

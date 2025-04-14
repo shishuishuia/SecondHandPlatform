@@ -24,7 +24,7 @@ public class JwtHelper {
 
     @Value("120")
     private  long tokenExpiration ; //有效时间,单位毫秒 1000毫秒 == 1秒
-    @Value("zxczxczxc")
+    @Value("zxchaiusdhaiusdfxvjnsiaishihuishuiazheshishuishuidhuaizxczxcasdasdhsihsuihsuiaashdiuxcniansuishishuishuia")
     private  String tokenSignKey;  //当前程序签名秘钥
 
     //生成token字符串
