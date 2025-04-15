@@ -43,6 +43,10 @@ public class UserServiceimpl implements UserService {
             String token = jwtHelper.createToken((long) user.getId());
             Map data = new HashMap();
             data.put("token",token);
+            data.put("username",user.getUsername());
+            data.put("photo", user.getPhone());
+            data.put("gender", user.getGender());
+            data.put("name",user.getName());
             return Result.ok(data);
         }
         return Result.build(null,ResultCodeEnum.PASSWORD_ERROR);
