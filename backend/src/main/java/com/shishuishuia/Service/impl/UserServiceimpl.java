@@ -42,9 +42,12 @@ public class UserServiceimpl implements UserService {
             //登陆成功
             String token = jwtHelper.createToken((long) user.getId());
             Map data = new HashMap();
+            System.out.println("UserServicelogin User:  "+user);
+            data.put("id",user.getId());
             data.put("token",token);
             data.put("username",user.getUsername());
-            data.put("photo", user.getPhone());
+            data.put("phone", user.getPhone());
+            data.put("photo",user.getAvatar());
             data.put("gender", user.getGender());
             data.put("name",user.getName());
             return Result.ok(data);
@@ -56,9 +59,18 @@ public class UserServiceimpl implements UserService {
     @Override
     public Result register(User user) {
         User user1 = userMapper.findbyUsername(user.getUsername());
-        if(user1.getUsername() == user.getUsername()){
-            return null;
+        System.out.println(user1);
+        if(user1 == null) {
+            user.setAvatar("https://www.keaitupian.cn/cjpic/frombd/0/253/1869181623/3579598273.jpg"); //默认头像
+            user.setName(user.getUsername());   //默认名字
+            System.out.println("service"+user);
+            int insert = userMapper.insert(user);
+            return Result.ok(insert);
+
         }
-        return null;
+        else
+            return Result.build(null, ResultCodeEnum.USERNAME_USED);
+
+
     }
 }

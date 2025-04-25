@@ -38,6 +38,16 @@ spring:
       max-pool-prepared-statement-per-connection-size: -1
       # 合并多个DruidDataSource的监控数据
       use-global-data-source-stat: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  upload:
+    # 开发环境配置（指向resources/static/uploads）
+    base-dir: src/main/resources/static/uploads
+
 
 logging:
   level:

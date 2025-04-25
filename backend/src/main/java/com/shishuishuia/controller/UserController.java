@@ -34,13 +34,28 @@ public class UserController {
 
         System.out.println( username+password);
         Result result = userService.login(username, password);
+        System.out.println(result);
         return result;
+    }
+
+    @ResponseBody
+    @GetMapping("/userinfo")
+    public Result getUserinfo(@RequestBody int id){
+        System.out.println("getinfo"+id);
+        return Result.ok(id);
     }
 
     @ResponseBody
     @PostMapping("/register")
     public Result register(@RequestBody User user) {
-        System.out.println(user);
-        return Result.ok("ok");
+        System.out.println("controller"+user);
+        Result result = userService.register(user);
+        return result;
+    }
+
+    @ResponseBody
+    @GetMapping("/getdetail")
+    public Result getGetail(){
+        return Result.ok(1);
     }
 }

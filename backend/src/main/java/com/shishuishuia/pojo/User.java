@@ -25,7 +25,8 @@ public class User {
     private String username;
     private String password;
     private String gender;
-    private String avatar_url;
+    private String avatar;
     private String location;
-    private Date registered_at;
+    private Date registered;
+    private int transactionnumber;
 }
