@@ -1,7 +1,7 @@
 package com.shishuishuia.controller;
 
-import com.shishuishuia.Service.HeadphoneService;
-import com.shishuishuia.pojo.Headphone;
+import com.shishuishuia.Service.HandphoneService;
+import com.shishuishuia.pojo.HandPhone;
 import com.shishuishuia.utils.FileStorageService;
 import com.shishuishuia.utils.Result;
 import com.shishuishuia.utils.ResultCodeEnum;
@@ -28,7 +28,7 @@ import java.util.Map;
 public class HeadphoneController {
 
     @Autowired
-    private HeadphoneService headphoneService;
+    private HandphoneService handphoneService;
 
     @Autowired
     private FileStorageService fileStorageService;
@@ -52,7 +52,7 @@ public class HeadphoneController {
 
         try {
             // 1. 处理商品基本信息
-            Headphone product = new Headphone();
+            HandPhone product = new HandPhone();
             product.setHeadline(headline);
             product.setPrice(price);
             product.setQuality(quality);
@@ -72,7 +72,7 @@ public class HeadphoneController {
             product.setPhotos(imageUrls);
 
             // 3. 保存商品到数据库
-            headphoneService.uploadHeadphone(id,product);
+            handphoneService.uploadHeadphone(id,product);
             System.out.println(product);
 
             return Result.ok(Map.of(
@@ -89,5 +89,12 @@ public class HeadphoneController {
         }
     }
 
+    @GetMapping("/productlist/{id}")
+    public Result getProductList(@PathVariable int id){
+
+        System.out.println(id);
+        Result allHandphoneByUserId = handphoneService.getAllHandphoneByUserId(id);
+        return allHandphoneByUserId;
+    }
 
 }

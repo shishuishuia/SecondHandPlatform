@@ -19,7 +19,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Headphone {
+public class HandPhone {
     private int id;
     private int state;
     private double price;

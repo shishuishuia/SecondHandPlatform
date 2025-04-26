@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.shishuishuia.mapper.HeadphoneMapper">
+<mapper namespace="com.shishuishuia.mapper.HandphoneMapper">
 
     <insert id="saveHeadphone" useGeneratedKeys="true" keyProperty="id">
         insert into handphone(state, price,browse, headline, location, detail, quality)
@@ -19,4 +19,33 @@
             (#{id}, #{item})
         </foreach>
     </insert>
+
+    <resultMap id="handphoneResultMap" type="com.shishuishuia.pojo.HandPhone">
+        <id property="id" column="id"/>
+        <result property="state" column="state"/>
+        <result property="price" column="price"/>
+        <result property="detail" column="detail"/>
+        <result property="quality" column="quality"/>
+        <result property="headline" column="headline"/>
+        <result property="publishedtime" column="publishedtime"/>
+        <result property="browse" column="browse"/>
+        <result property="location" column="location"/>
+        <!-- 其他字段映射... -->
+        <result property="photos" column="photos"
+                typeHandler="com.shishuishuia.utils.StringToListTypeHandler"/>
+    </resultMap>
+
+    <select id="getAllrHandphoneByUseId" resultMap="handphoneResultMap">
+        SELECT
+            h.*,
+            GROUP_CONCAT(DISTINCT p.photo) AS photos
+        FROM
+            publish pub
+                INNER JOIN handphone h ON pub.phoneId = h.id
+                LEFT JOIN phonephoto p ON h.id = p.id
+        WHERE
+            pub.userId = #{id}
+        GROUP BY
+            h.id;
+    </select>
 </mapper>
