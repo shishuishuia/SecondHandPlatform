@@ -18,4 +18,5 @@ public interface UserService {
 
     public Result login(String username, String password);
     public Result register(User user);
+    public Result getUserInfoById(int id);
 }

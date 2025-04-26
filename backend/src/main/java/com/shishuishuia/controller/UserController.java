@@ -25,7 +25,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @ResponseBody
     @PostMapping("/login")
     public Result login(@RequestBody User user){
 
@@ -38,14 +37,13 @@ public class UserController {
         return result;
     }
 
-    @ResponseBody
-    @GetMapping("/userinfo")
-    public Result getUserinfo(@RequestBody int id){
-        System.out.println("getinfo"+id);
-        return Result.ok(id);
+    @GetMapping("/userinfo/{userId}")
+    public Result getUserinfo(@PathVariable int userId){
+        System.out.println("getinfo"+userId);
+        Result userInfoById = userService.getUserInfoById(userId);
+        return userInfoById;
     }
 
-    @ResponseBody
     @PostMapping("/register")
     public Result register(@RequestBody User user) {
         System.out.println("controller"+user);
@@ -53,7 +51,6 @@ public class UserController {
         return result;
     }
 
-    @ResponseBody
     @GetMapping("/getdetail")
     public Result getGetail(){
         return Result.ok(1);

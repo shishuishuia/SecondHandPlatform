@@ -73,4 +73,28 @@ public class UserServiceimpl implements UserService {
 
 
     }
+
+    @Override
+    public Result getUserInfoById(int id) {
+
+        User user = userMapper.getUserInfoById(id);
+        if(user!=null){
+            Map data = new HashMap();
+            data.put("id",user.getId());
+            data.put("username",user.getUsername());
+            data.put("phone", user.getPhone());
+            data.put("photo",user.getAvatar());
+            data.put("gender", user.getGender());
+            data.put("name",user.getName());
+            data.put("avatar",user.getAvatar());
+            data.put("location",user.getLocation());
+            data.put("transactionnumber",user.getTransactionnumber());
+            data.put("registered",user.getRegistered());
+            return Result.ok(data);
+        }
+        return Result.build(Map.of(
+                "success", false,
+                "message", "没找到用户 "
+        ),ResultCodeEnum.OTHERMISTAKE);
+    }
 }

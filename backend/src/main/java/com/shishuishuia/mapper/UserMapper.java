@@ -13,8 +13,12 @@ import org.apache.ibatis.annotations.Param;
  */
 
 
-public interface UserMapper {
+public interface  UserMapper {
 
     public User findbyUsername(String username);
     public int insert(User user);
+    public User getUserInfoById(int id);
+
+    //发布商品
+
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shishuishuia.mapper.HeadphoneMapper">
+
+    <insert id="saveHeadphone" useGeneratedKeys="true" keyProperty="id">
+        insert into handphone(state, price,browse, headline, location, detail, quality)
+        values(#{state}, #{price}, 0, #{headline}, #{location}, #{detail}, #{quality})
+    </insert>
+    <insert id="publishhandphone">
+        insert into publish(userid, phoneId) values (#{userId}, #{handphoneId})
+    </insert>
+    <insert id="savephonePhoto" parameterType="list">
+        INSERT INTO phonephoto (id, photo)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{id}, #{item})
+        </foreach>
+    </insert>
+</mapper>

@@ -28,7 +28,7 @@ public class Headphone {
     private String headline;
     private String detail;
     private String quality;
-
+    private String location;
 //    @ElementCollection
     private List<String> photos;
 

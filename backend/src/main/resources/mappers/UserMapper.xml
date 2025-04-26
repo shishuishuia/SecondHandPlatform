@@ -9,6 +9,7 @@
         VALUES (#{name}, #{phone}, #{username}, #{password}, #{gender}, #{avatar}, 0)
     </insert>
 
+
     <select id="login" resultType="com.shishuishuia.pojo.User">
         select *
         from user
@@ -19,5 +20,10 @@
         select *
         from user
         where username= #{username}
+    </select>
+    <select id="getUserInfoById" resultType="com.shishuishuia.pojo.User">
+        select *
+        from user
+        where id=#{id}
     </select>
 </mapper>
