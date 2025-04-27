@@ -48,4 +48,16 @@
         GROUP BY
             h.id;
     </select>
+    <select id="getDetailById" resultMap="handphoneResultMap">
+        SELECT
+            h.*,
+            GROUP_CONCAT(p.photo) AS photos  -- MySQL
+        FROM
+            handphone h
+                LEFT JOIN phonephoto p ON h.id = p.id
+        WHERE
+            h.id = #{id}
+        GROUP BY
+            h.id
+    </select>
 </mapper>

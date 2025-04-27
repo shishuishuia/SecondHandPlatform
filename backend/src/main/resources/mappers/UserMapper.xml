@@ -26,4 +26,10 @@
         from user
         where id=#{id}
     </select>
+    <select id="getUserInfoByhandphoneId" resultType="com.shishuishuia.pojo.User">
+        SELECT DISTINCT u.*
+        FROM user u
+                 JOIN publish p ON u.id = p.userid
+        WHERE p.phoneId = #{id}
+    </select>
 </mapper>

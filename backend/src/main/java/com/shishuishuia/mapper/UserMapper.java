@@ -18,7 +18,7 @@ public interface  UserMapper {
     public User findbyUsername(String username);
     public int insert(User user);
     public User getUserInfoById(int id);
-
+    public User getUserInfoByhandphoneId(int id);
     //发布商品
 
 }

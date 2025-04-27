@@ -20,4 +20,5 @@ public interface HandphoneMapper {
     public int savephonePhoto(int id, @Param("list") List<String> photos);
     public int publishhandphone(@Param("userId") int userId, @Param("handphoneId") int handphoneId);
     public List<HandPhone> getAllrHandphoneByUseId(int id);
+    public HandPhone getDetailById(int id);
 }

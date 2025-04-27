@@ -33,10 +33,13 @@ public class HeadphoneController {
     @Autowired
     private FileStorageService fileStorageService;
 
+    //id为手机id
     @GetMapping("/detail/{id}")
-    public Result findDetail(@PathVariable long id){
+    public Result getDetail(@PathVariable long id){
+
+        Result detailByphoneId = handphoneService.getDetailByphoneId((int) id);
         System.out.println(id+"1");
-        return Result.ok(id);
+        return detailByphoneId;
     }
 
 //    -------------------------------------------------------------------------------------------------
@@ -89,6 +92,7 @@ public class HeadphoneController {
         }
     }
 
+    //id为userId
     @GetMapping("/productlist/{id}")
     public Result getProductList(@PathVariable int id){
 

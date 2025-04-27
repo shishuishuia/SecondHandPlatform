@@ -2,13 +2,17 @@ package com.shishuishuia.Service.impl;
 
 import com.shishuishuia.Service.HandphoneService;
 import com.shishuishuia.mapper.HandphoneMapper;
+import com.shishuishuia.mapper.UserMapper;
 import com.shishuishuia.pojo.HandPhone;
+import com.shishuishuia.pojo.User;
 import com.shishuishuia.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 晓梦之尘
@@ -25,6 +29,8 @@ public class HeadphoneServiceImpl implements HandphoneService {
     @Autowired
     private HandphoneMapper handphoneMapper;
 
+    @Autowired
+    private UserMapper userMapper;
     @Override
 
     public Result uploadHeadphone(long userId, HandPhone headphone) {
@@ -44,5 +50,28 @@ public class HeadphoneServiceImpl implements HandphoneService {
     public Result getAllHandphoneByUserId(int id){
         List<HandPhone> allrHandphoneByUseId = handphoneMapper.getAllrHandphoneByUseId(id);
         return Result.ok(allrHandphoneByUseId);
+    }
+
+    @Override
+    public Result getDetailByphoneId(int id) {
+        HandPhone detailById = handphoneMapper.getDetailById(id);
+        System.out.println(detailById);
+        User userInfoByhandphoneId = userMapper.getUserInfoByhandphoneId(id);
+        Map data = new HashMap<>();
+        data.put("id",detailById.getId());
+        data.put("state",detailById.getState());
+        data.put("browse",detailById.getBrowse());
+        data.put("price",detailById.getPrice());
+        data.put("publishedtime",detailById.getPublishedtime());
+        data.put("headline",detailById.getHeadline());
+        data.put("detail",detailById.getDetail());
+        data.put("quality",detailById.getQuality());
+        data.put("photos",detailById.getPhotos());
+        data.put("userId",userInfoByhandphoneId.getId());
+        data.put("name",userInfoByhandphoneId.getName());
+        data.put("avatar",userInfoByhandphoneId.getAvatar());
+        data.put("transactions",userInfoByhandphoneId.getTransactionnumber());
+
+        return Result.ok(data);
     }
 }
