@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shishuishuia.mapper.OrderMapper">
+
+    <insert id="createOrder" useGeneratedKeys="true" keyProperty="id">
+        -- 插入新订单（仅需必要字段，其他字段自动填充）
+        INSERT INTO orders (
+            buyer_id,
+            seller_id,
+            phone_id,
+            payment
+        ) VALUES (
+                     #{buyerId},   -- 买家ID（需存在于users表）
+                     #{sellerId},   -- 卖家ID（需存在于users表）
+                     #{phoneId},   -- 商品ID（需存在于phones表）
+                     #{payment}  -- 支付金额
+                 );
+    </insert>
+</mapper>
+
