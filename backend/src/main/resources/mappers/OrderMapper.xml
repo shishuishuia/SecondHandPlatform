@@ -5,6 +5,41 @@
 
 <mapper namespace="com.shishuishuia.mapper.OrderMapper">
 
+    <resultMap id="orderWithHandPhoneMap" type="com.shishuishuia.pojo.Orders">
+        <!-- Orders properties -->
+        <id property="orderId" column="order_id"/>
+        <result property="buyerId" column="buyer_id"/>
+        <result property="sellerId" column="seller_id"/>
+        <result property="phoneId" column="phone_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="payTime" column="pay_time"/>
+        <result property="deliverTime" column="deliver_time"/>
+        <result property="confirmTime" column="confirm_time"/>
+        <result property="cancelTime" column="cancel_time"/>
+        <result property="finishTime" column="finish_time"/>
+        <result property="orderState" column="order_state"/>
+        <result property="payment" column="payment"/>
+        <result property="isDeleted" column="is_deleted"/>
+
+        <!-- HandPhone association -->
+        <association property="handPhone" javaType="com.shishuishuia.pojo.HandPhone">
+            <id property="id" column="id"/>
+            <result property="state" column="state"/>
+            <result property="price" column="price"/>
+            <result property="browse" column="browse"/>
+            <result property="publishedtime" column="publishedtime"/>
+            <result property="headline" column="headline"/>
+            <result property="detail" column="detail"/>
+            <result property="quality" column="quality"/>
+            <result property="location" column="location"/>
+            <result property="photos" column="photos"
+                    typeHandler="com.shishuishuia.utils.StringToListTypeHandler"/>
+
+        </association>
+    </resultMap>
+
+
     <insert id="createOrder" useGeneratedKeys="true" keyProperty="id">
         -- 插入新订单（仅需必要字段，其他字段自动填充）
         INSERT INTO orders (
@@ -19,5 +54,44 @@
                      #{payment}  -- 支付金额
                  );
     </insert>
+    <select id="getOrderDetailById" resultMap="orderWithHandPhoneMap">
+        SELECT
+            orders.*,
+            h.state,
+            h.price,
+            h.browse,
+            h.publishedtime,
+            h.headline,
+            h.detail,
+            h.quality,
+            h.location,
+            GROUP_CONCAT(DISTINCT p.photo) AS photos
+        FROM orders
+                 INNER JOIN handphone h ON orders.phone_id = h.id
+                INNER JOIN phonephoto p ON orders.phone_id = p.id
+        WHERE order_id = #{id}
+        GROUP BY orders.order_id;
+    </select>
+    <select id="getBuyOrderListByBuyerId"  resultMap="orderWithHandPhoneMap">
+        SELECT
+            orders.*,
+            h.state,
+            h.price,
+            h.browse,
+            h.publishedtime,
+            h.headline,
+            h.detail,
+            h.quality,
+            h.location,
+            u.avatar,
+            u.name,
+            GROUP_CONCAT(DISTINCT p.photo) AS photos
+        FROM orders
+                 INNER JOIN handphone h ON orders.phone_id = h.id
+                 INNER JOIN user u ON orders.seller_id = u.id
+                INNER JOIN phonephoto p ON orders.phone_id = p.id
+        WHERE buyer_id = #{id}
+        GROUP BY orders.order_id;
+    </select>
 </mapper>
 

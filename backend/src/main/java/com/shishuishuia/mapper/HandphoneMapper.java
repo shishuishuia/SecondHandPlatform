@@ -21,4 +21,5 @@ public interface HandphoneMapper {
     public int publishhandphone(@Param("userId") int userId, @Param("handphoneId") int handphoneId);
     public List<HandPhone> getAllrHandphoneByUseId(int id);
     public HandPhone getDetailById(int id);
+    public List<HandPhone> getAllByLocationHandPhones(String location);
 }

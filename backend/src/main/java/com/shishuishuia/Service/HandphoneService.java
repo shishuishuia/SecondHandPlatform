@@ -15,4 +15,5 @@ public interface HandphoneService {
     public Result uploadHeadphone(long userId, HandPhone headphone);
     public Result getAllHandphoneByUserId(int id);
     public Result getDetailByphoneId(int id);
+    public Result getHandphoneListBylocation(String location);
 }

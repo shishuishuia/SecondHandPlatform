@@ -3,6 +3,8 @@ package com.shishuishuia.mapper;
 import com.shishuishuia.pojo.Orders;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author 晓梦之尘
  * more about author: www.shuishuia.cn
@@ -13,4 +15,6 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface OrderMapper {
     public int createOrder(Orders orders);
+    public Orders getOrderDetailById(int id);
+    public List<Orders> getBuyOrderListByBuyerId(int id);
 }

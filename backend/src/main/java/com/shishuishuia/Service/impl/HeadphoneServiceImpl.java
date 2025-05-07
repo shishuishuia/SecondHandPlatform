@@ -74,4 +74,10 @@ public class HeadphoneServiceImpl implements HandphoneService {
 
         return Result.ok(data);
     }
+
+    @Override
+    public Result getHandphoneListBylocation(String location) {
+        List<HandPhone> allByLocationHandPhones = handphoneMapper.getAllByLocationHandPhones(location);
+        return Result.ok(allByLocationHandPhones);
+    }
 }

@@ -28,4 +28,15 @@ public class OrderController {
         Result result = orderService.createOrder(orders);
         return result;
     }
+
+    @GetMapping("buy/orderList/{id}")
+    public Result getBuyOrderListByBuyerId(@PathVariable int id){
+        Result orderListByBuyerId = orderService.getOrderListByBuyerId(id);
+        return orderListByBuyerId;
+    }
+    @GetMapping("buy/detail/{id}")
+    public Result getBuyOrderDetailById(@PathVariable int id){
+        Result orderDetailById = orderService.getOrderDetailById(id);
+        return orderDetailById;
+    }
 }

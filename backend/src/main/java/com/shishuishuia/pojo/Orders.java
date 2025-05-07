@@ -45,6 +45,9 @@ public class Orders {
 
     private static final long serialVersionUID = 1L;
 
+    private HandPhone handPhone;
+    private String name;
+    private String avatar;
     @Override
     public boolean equals(Object that) {
         if (this == that) {

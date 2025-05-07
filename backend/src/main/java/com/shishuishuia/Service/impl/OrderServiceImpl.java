@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 晓梦之尘
@@ -29,5 +30,19 @@ public class OrderServiceImpl implements OrderService {
 //        int res = orderMapper.createOrder(orders);
 //        System.out.println(orders.getOrderId());
         return Result.ok("res");
+    }
+
+    @Override
+    public Result getOrderDetailById(int id) {
+        Orders orderDetailById = orderMapper.getOrderDetailById(id);
+
+        return Result.ok(orderDetailById);
+    }
+
+    @Override
+    public Result getOrderListByBuyerId(int id) {
+        List<Orders> buyOrderListByBuyerId = orderMapper.getBuyOrderListByBuyerId(id);
+
+        return Result.ok(buyOrderListByBuyerId);
     }
 }

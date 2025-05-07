@@ -60,4 +60,13 @@
         GROUP BY
             h.id
     </select>
+    <select id="getAllByLocationHandPhones" resultMap="handphoneResultMap">
+        select h.*,
+               GROUP_CONCAT(p.photo) AS photos
+        from handphone h
+                 INNER JOIN phonephoto p ON h.id = p.id
+        where location=#{location}
+        GROUP BY
+            h.id;
+    </select>
 </mapper>

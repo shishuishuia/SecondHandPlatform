@@ -101,4 +101,11 @@ public class HeadphoneController {
         return allHandphoneByUserId;
     }
 
+    @GetMapping("getlistInfo")
+    public Result gethandphoneListByLocation(@RequestParam String location){
+        System.out.println(location);
+        Result handphoneListBylocation = handphoneService.getHandphoneListBylocation(location);
+        return handphoneListBylocation;
+    }
+
 }
