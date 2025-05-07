@@ -11,13 +11,13 @@
         <result property="buyerId" column="buyer_id"/>
         <result property="sellerId" column="seller_id"/>
         <result property="phoneId" column="phone_id"/>
-        <result property="createTime" column="create_time"/>
-        <result property="updateTime" column="update_time"/>
-        <result property="payTime" column="pay_time"/>
-        <result property="deliverTime" column="deliver_time"/>
-        <result property="confirmTime" column="confirm_time"/>
-        <result property="cancelTime" column="cancel_time"/>
-        <result property="finishTime" column="finish_time"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="payTime" column="pay_time" jdbcType="TIMESTAMP"/>
+        <result property="deliverTime" column="deliver_time" jdbcType="TIMESTAMP"/>
+        <result property="confirmTime" column="confirm_time" jdbcType="TIMESTAMP"/>
+        <result property="cancelTime" column="cancel_time" jdbcType="TIMESTAMP"/>
+        <result property="finishTime" column="finish_time" jdbcType="TIMESTAMP"/>
         <result property="orderState" column="order_state"/>
         <result property="payment" column="payment"/>
         <result property="isDeleted" column="is_deleted"/>
@@ -28,7 +28,7 @@
             <result property="state" column="state"/>
             <result property="price" column="price"/>
             <result property="browse" column="browse"/>
-            <result property="publishedtime" column="publishedtime"/>
+            <result property="publishedtime" column="publishedtime" jdbcType="TIMESTAMP"/>
             <result property="headline" column="headline"/>
             <result property="detail" column="detail"/>
             <result property="quality" column="quality"/>
@@ -91,6 +91,27 @@
                  INNER JOIN user u ON orders.seller_id = u.id
                 INNER JOIN phonephoto p ON orders.phone_id = p.id
         WHERE buyer_id = #{id}
+        GROUP BY orders.order_id;
+    </select>
+    <select id="getSellOrderListBySellerId"  resultMap="orderWithHandPhoneMap">
+        SELECT
+            orders.*,
+            h.state,
+            h.price,
+            h.browse,
+            h.publishedtime,
+            h.headline,
+            h.detail,
+            h.quality,
+            h.location,
+            u.avatar,
+            u.name,
+            GROUP_CONCAT(DISTINCT p.photo) AS photos
+        FROM orders
+                 INNER JOIN handphone h ON orders.phone_id = h.id
+                 INNER JOIN user u ON orders.seller_id = u.id
+                 INNER JOIN phonephoto p ON orders.phone_id = p.id
+        WHERE seller_id = #{id}
         GROUP BY orders.order_id;
     </select>
 </mapper>

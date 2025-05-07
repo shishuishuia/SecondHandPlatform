@@ -17,4 +17,5 @@ public interface OrderMapper {
     public int createOrder(Orders orders);
     public Orders getOrderDetailById(int id);
     public List<Orders> getBuyOrderListByBuyerId(int id);
+    public List<Orders> getSellOrderListBySellerId(int id);
 }

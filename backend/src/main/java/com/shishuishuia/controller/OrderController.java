@@ -39,4 +39,15 @@ public class OrderController {
         Result orderDetailById = orderService.getOrderDetailById(id);
         return orderDetailById;
     }
+    @GetMapping("sell/detail/{id}")
+    public Result getsellOrderDetailById(@PathVariable int id){
+        Result orderDetailById = orderService.getOrderDetailById(id);
+        return orderDetailById;
+    }
+    @GetMapping("sell/orderList/{id}")
+    public Result getSellOrderListBySellerId(@PathVariable int id){
+        System.out.println(id);
+        Result orderListBySellerId = orderService.getOrderListBySellerId(id);
+        return orderListBySellerId;
+    }
 }

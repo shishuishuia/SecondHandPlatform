@@ -8,7 +8,7 @@ spring:
 
     # Druid的其他属性配置 springboot3整合情况下,数据库连接信息必须在Druid属性下!
     druid:
-      url: jdbc:mysql://localhost:3306/secondhandplatform
+      url: jdbc:mysql://localhost:3306/secondhandplatform?serverTimezone=Asia/Shanghai
       username: root
       password: root
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -43,6 +43,11 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
 
+
+  jpa:
+    hibernate:
+      jdbc:
+        time_zone:Asia/Shanghai
 app:
   upload:
     # 开发环境配置（指向resources/static/uploads）

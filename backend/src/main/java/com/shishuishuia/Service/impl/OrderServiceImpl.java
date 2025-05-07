@@ -45,4 +45,10 @@ public class OrderServiceImpl implements OrderService {
 
         return Result.ok(buyOrderListByBuyerId);
     }
+
+    @Override
+    public Result getOrderListBySellerId(int id) {
+        List<Orders> sellOrderListBySellerId = orderMapper.getSellOrderListBySellerId(id);
+        return Result.ok(sellOrderListBySellerId);
+    }
 }

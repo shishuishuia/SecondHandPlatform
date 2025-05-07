@@ -1,10 +1,12 @@
 package com.shishuishuia.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author 晓梦之尘
@@ -27,6 +29,7 @@ public class User {
     private String gender;
     private String avatar;
     private String location;
-    private Date registered;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime registered;
     private int transactionnumber;
 }

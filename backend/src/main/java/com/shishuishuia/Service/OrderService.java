@@ -17,4 +17,5 @@ public interface OrderService {
     public Result createOrder(Orders orders);
     public Result getOrderDetailById(int id);
     public Result getOrderListByBuyerId(int id);
+    public Result getOrderListBySellerId(int id);
 }

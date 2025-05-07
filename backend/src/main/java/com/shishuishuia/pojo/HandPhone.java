@@ -1,9 +1,11 @@
 package com.shishuishuia.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +26,8 @@ public class HandPhone {
     private int state;
     private double price;
     private int browse;
-    private Date publishedtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
+    private LocalDateTime publishedtime;
     private String headline;
     private String detail;
     private String quality;
