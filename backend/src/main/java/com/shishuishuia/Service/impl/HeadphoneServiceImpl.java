@@ -43,7 +43,7 @@ public class HeadphoneServiceImpl implements HandphoneService {
 
 
         int i = handphoneMapper.savephonePhoto(headphone.getId(), headphone.getPhotos());
-        int publishhandphone = handphoneMapper.publishhandphone((int) userId, handphoneid);
+        int publishhandphone = handphoneMapper.publishhandphone((int) userId, headphone.getId());
         return Result.ok(publishhandphone);
     }
 

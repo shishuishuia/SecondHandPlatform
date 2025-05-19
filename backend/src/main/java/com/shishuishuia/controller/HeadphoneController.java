@@ -3,6 +3,7 @@ package com.shishuishuia.controller;
 import com.shishuishuia.Service.HandphoneService;
 import com.shishuishuia.pojo.HandPhone;
 import com.shishuishuia.utils.FileStorageService;
+import com.shishuishuia.utils.JwtHelper;
 import com.shishuishuia.utils.Result;
 import com.shishuishuia.utils.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ import java.util.Map;
 public class HeadphoneController {
 
     @Autowired
+    private JwtHelper jwtHelper;
+
+    @Autowired
     private HandphoneService handphoneService;
 
     @Autowired
@@ -43,9 +47,9 @@ public class HeadphoneController {
     }
 
 //    -------------------------------------------------------------------------------------------------
-    @PostMapping("/upload/{id}")  //id为用户 id
+    @PostMapping("/upload")
     public Result uploadHeadphone(
-            @PathVariable Long id,
+            @RequestParam String token,
             @RequestParam String headline,
             @RequestParam double price,
             @RequestParam String quality,
@@ -61,7 +65,6 @@ public class HeadphoneController {
             product.setQuality(quality);
             product.setDetail(detail);
             product.setLocation(location);
-            System.out.println("upload controller:"+id);
 
             // 2. 处理图片
             List<String> imageUrls = new ArrayList<>();
@@ -73,7 +76,8 @@ public class HeadphoneController {
                 }
             }
             product.setPhotos(imageUrls);
-
+            System.out.println(token);
+            Long id = jwtHelper.getUserId(token);
             // 3. 保存商品到数据库
             handphoneService.uploadHeadphone(id,product);
             System.out.println(product);

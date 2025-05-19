@@ -51,8 +51,9 @@ public class UserController {
         return result;
     }
 
-    @GetMapping("/getdetail")
-    public Result getGetail(){
-        return Result.ok(1);
+    @GetMapping("/getdetail/{userid}")
+    public Result getGetail(@PathVariable int userid){
+        Result userInfoById = userService.getUserInfoById(userid);
+        return Result.ok(userInfoById);
     }
 }
