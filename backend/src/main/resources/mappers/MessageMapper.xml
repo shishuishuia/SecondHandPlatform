@@ -4,10 +4,29 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.shishuishuia.mapper.MessageMapper">
+    <insert id="saveMessage" >
+        INSERT INTO message (senderId, receiverId, content)
+        VALUES (#{senderId}, #{receiverId}, #{content})
+    </insert>
 
     <select id="getMessageBySenderId" resultType="com.shishuishuia.pojo.Message">
-        select *
-        from message
-        where senderId = #{id}
+        SELECT *
+        FROM message
+        WHERE (senderId = #{senderId} AND receiverId = #{receiverId})
+           OR (senderId = #{receiverId} AND receiverId = #{senderId})
     </select>
+    <select id="getUserlistBySenderId" resultType="com.shishuishuia.pojo.User">
+        select id, name, avatar
+        from message m
+            INNER JOIN user u on m.receiverId = u.id
+        where m.senderId=#{senderId}
+    </select>
+    <select id="getUserlistByReceiverId" resultType="com.shishuishuia.pojo.User">
+        select id, name, avatar
+        from message m
+                 INNER JOIN user u on m.senderId = u.id
+        where m.receiverId=#{receiverId}
+    </select>
+
+
 </mapper>

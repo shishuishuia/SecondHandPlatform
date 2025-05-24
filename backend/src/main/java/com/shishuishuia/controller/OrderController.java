@@ -3,8 +3,11 @@ package com.shishuishuia.controller;
 import com.shishuishuia.Service.OrderService;
 import com.shishuishuia.pojo.Orders;
 import com.shishuishuia.utils.Result;
+import com.shishuishuia.utils.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @author 晓梦之尘
@@ -25,6 +28,8 @@ public class OrderController {
     @PostMapping("/create")
     public Result createOrdes(@RequestBody Orders orders){
         System.out.println("phoneId: "+ orders);
+        if(orders.getBuyerId() == orders.getSellerId())
+            return Result.build(Map.of("message","买家和卖家不能为同一个人"), ResultCodeEnum.OTHERMISTAKE);
         Result result = orderService.createOrder(orders);
         return result;
     }
@@ -49,5 +54,11 @@ public class OrderController {
         System.out.println(id);
         Result orderListBySellerId = orderService.getOrderListBySellerId(id);
         return orderListBySellerId;
+    }
+    @PutMapping("cancel/{orderId}")
+    public Result putCancelOrder(@PathVariable int orderId){
+        System.out.println(orderId);
+        Result result = orderService.cancelOrder(orderId);
+        return result;
     }
 }

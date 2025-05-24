@@ -1,5 +1,6 @@
 package com.shishuishuia.Service;
 
+import com.shishuishuia.pojo.Message;
 import com.shishuishuia.utils.Result;
 
 /**
@@ -11,5 +12,8 @@ import com.shishuishuia.utils.Result;
  * @Version 1.0
  */
 public interface MessageService {
-    public Result getMessageListById(int id);
+    public Result getMessageListById(int id,int receiverId);
+    public int saveMessage(Message message);
+
+    public Result getUserListBySenderId(int id);
 }

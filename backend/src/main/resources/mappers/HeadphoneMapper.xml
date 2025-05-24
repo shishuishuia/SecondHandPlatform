@@ -19,6 +19,16 @@
             (#{id}, #{item})
         </foreach>
     </insert>
+    <update id="updatephoneState">
+        update handphone
+        set state=#{state}
+        where id=#{phoneId}
+    </update>
+    <update id="updateBrowseInt">
+        update handphone
+        set browse=browse+1
+        where id =#{id}
+    </update>
 
     <resultMap id="handphoneResultMap" type="com.shishuishuia.pojo.HandPhone">
         <id property="id" column="id"/>
@@ -65,7 +75,7 @@
                GROUP_CONCAT(p.photo) AS photos
         from handphone h
                  INNER JOIN phonephoto p ON h.id = p.id
-        where location=#{location}
+        where location=#{location} and state = 0
         GROUP BY
             h.id;
     </select>

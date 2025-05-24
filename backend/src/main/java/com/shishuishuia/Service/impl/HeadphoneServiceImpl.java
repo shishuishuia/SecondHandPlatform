@@ -55,7 +55,8 @@ public class HeadphoneServiceImpl implements HandphoneService {
     @Override
     public Result getDetailByphoneId(int id) {
         HandPhone detailById = handphoneMapper.getDetailById(id);
-        System.out.println(detailById);
+        handphoneMapper.updateBrowseInt(id);
+
         User userInfoByhandphoneId = userMapper.getUserInfoByhandphoneId(id);
         Map data = new HashMap<>();
         data.put("id",detailById.getId());

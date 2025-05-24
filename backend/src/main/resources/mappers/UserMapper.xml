@@ -8,7 +8,16 @@
         INSERT INTO user(name, phone, username, password, gender, avatar, transactionnumber)
         VALUES (#{name}, #{phone}, #{username}, #{password}, #{gender}, #{avatar}, 0)
     </insert>
-
+    <update id="updateUserInfo">
+        update user
+        set name=#{name},phone=#{phone},avatar=#{avatar}
+        where id = #{id}
+    </update>
+    <update id="increasetransactionnumber">
+        update user
+        set transactionnumber = transactionnumber +1
+        where id =#{userId}
+    </update>
 
     <select id="login" resultType="com.shishuishuia.pojo.User">
         select *

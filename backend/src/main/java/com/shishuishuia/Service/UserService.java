@@ -12,6 +12,7 @@ package com.shishuishuia.Service;
 import com.shishuishuia.pojo.User;
 import com.shishuishuia.utils.Result;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 public interface UserService {
@@ -19,4 +20,5 @@ public interface UserService {
     public Result login(String username, String password);
     public Result register(User user);
     public Result getUserInfoById(int id);
+    public Result updateUserInfo(int id,String name, String phone, MultipartFile avatar);
 }

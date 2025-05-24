@@ -16,6 +16,8 @@ import java.util.List;
 public interface OrderMapper {
     public int createOrder(Orders orders);
     public Orders getOrderDetailById(int id);
+    public Orders getOrderDetailByphoneId(int id);
     public List<Orders> getBuyOrderListByBuyerId(int id);
     public List<Orders> getSellOrderListBySellerId(int id);
+    public int updateOrderStateInt(@Param("orderId")int id, @Param("state" )int state);
 }

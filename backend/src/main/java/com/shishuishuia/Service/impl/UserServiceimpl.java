@@ -3,12 +3,15 @@ package com.shishuishuia.Service.impl;
 import com.shishuishuia.Service.UserService;
 import com.shishuishuia.mapper.UserMapper;
 import com.shishuishuia.pojo.User;
+import com.shishuishuia.utils.FileStorageService;
 import com.shishuishuia.utils.JwtHelper;
 import com.shishuishuia.utils.Result;
 import com.shishuishuia.utils.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +29,9 @@ public class UserServiceimpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @Autowired
     private JwtHelper jwtHelper;
@@ -61,7 +67,7 @@ public class UserServiceimpl implements UserService {
         User user1 = userMapper.findbyUsername(user.getUsername());
         System.out.println(user1);
         if(user1 == null) {
-            user.setAvatar("https://www.keaitupian.cn/cjpic/frombd/0/253/1869181623/3579598273.jpg"); //默认头像
+            user.setAvatar("/uploads/5-23/2aa0fb67-6bfd-479e-89c4-142ef99d2b35.jpg"); //默认头像
             user.setName(user.getUsername());   //默认名字
             System.out.println("service"+user);
             int insert = userMapper.insert(user);
@@ -96,5 +102,23 @@ public class UserServiceimpl implements UserService {
                 "success", false,
                 "message", "没找到用户 "
         ),ResultCodeEnum.OTHERMISTAKE);
+    }
+
+    @Override
+    public Result updateUserInfo(int id,String name, String phone, MultipartFile avatar) {
+        try {
+            String s = fileStorageService.storeFile(avatar);
+            User user = new User();
+            user.setAvatar(s);
+            user.setName(name);
+            user.setPhone(phone);
+            user.setId(id);
+            int i = userMapper.updateUserInfo(user);
+            if(i>0) return Result.ok(i);
+            else return Result.build(Map.of("message","修改失败"),ResultCodeEnum.OTHERMISTAKE);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

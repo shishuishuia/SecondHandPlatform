@@ -1,6 +1,8 @@
 package com.shishuishuia.mapper;
 
 import com.shishuishuia.pojo.Message;
+import com.shishuishuia.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,5 +15,14 @@ import java.util.List;
  * @Version 1.0
  */
 public interface MessageMapper {
-    public List<Message> getMessageBySenderId(int id);
+
+    //获取消息记录
+    public List<Message> getMessageBySenderId(@Param("senderId") int senderId,
+                                              @Param("receiverId") int receiverId);
+    //保存消息
+    public int saveMessage(Message message);
+
+    //获取聊天用户列表
+    public List<User> getUserlistBySenderId(int senderId);
+    public List<User> getUserlistByReceiverId(int receiverId);
 }

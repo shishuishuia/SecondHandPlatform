@@ -19,6 +19,10 @@ public interface  UserMapper {
     public int insert(User user);
     public User getUserInfoById(int id);
     public User getUserInfoByhandphoneId(int id);
+
+    public int updateUserInfo(User user);
     //发布商品
+
+    public int increasetransactionnumber(int userId);
 
 }

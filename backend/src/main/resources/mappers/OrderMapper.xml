@@ -54,6 +54,13 @@
                      #{payment}  -- 支付金额
                  );
     </insert>
+
+    <update id="updateOrderStateInt">
+        update orders
+        set order_state=#{state}
+        where order_id=#{orderId}
+    </update>
+
     <select id="getOrderDetailById" resultMap="orderWithHandPhoneMap">
         SELECT
             orders.*,
@@ -90,7 +97,7 @@
                  INNER JOIN handphone h ON orders.phone_id = h.id
                  INNER JOIN user u ON orders.seller_id = u.id
                 INNER JOIN phonephoto p ON orders.phone_id = p.id
-        WHERE buyer_id = #{id}
+        WHERE buyer_id = #{id} AND is_deleted=0
         GROUP BY orders.order_id;
     </select>
     <select id="getSellOrderListBySellerId"  resultMap="orderWithHandPhoneMap">
@@ -111,8 +118,13 @@
                  INNER JOIN handphone h ON orders.phone_id = h.id
                  INNER JOIN user u ON orders.seller_id = u.id
                  INNER JOIN phonephoto p ON orders.phone_id = p.id
-        WHERE seller_id = #{id}
+        WHERE seller_id = #{id} AND is_deleted=0
         GROUP BY orders.order_id;
+    </select>
+    <select id="getOrderDetailByphoneId" resultType="com.shishuishuia.pojo.Orders">
+        select *
+        from orders
+        where phone_id = #{id}
     </select>
 </mapper>
 

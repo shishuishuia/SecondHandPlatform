@@ -15,6 +15,11 @@ import lombok.Data;
 public class ResultMessage {
 
     private boolean isSystem;
-    private String fromName;
+    private String fromId;
     private Object message;//如果是系统消息是数组
+
+
+    public void setIsSystem(boolean isSystem) {
+        this.isSystem = isSystem;
+    }
 }

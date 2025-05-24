@@ -18,4 +18,5 @@ public interface OrderService {
     public Result getOrderDetailById(int id);
     public Result getOrderListByBuyerId(int id);
     public Result getOrderListBySellerId(int id);
+    public Result cancelOrder(int id);
 }
