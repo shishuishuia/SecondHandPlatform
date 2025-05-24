@@ -3,10 +3,7 @@ package com.shishuishuia.Service.impl;
 import com.shishuishuia.Service.UserService;
 import com.shishuishuia.mapper.UserMapper;
 import com.shishuishuia.pojo.User;
-import com.shishuishuia.utils.FileStorageService;
-import com.shishuishuia.utils.JwtHelper;
-import com.shishuishuia.utils.Result;
-import com.shishuishuia.utils.ResultCodeEnum;
+import com.shishuishuia.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +25,9 @@ import java.util.Map;
 public class UserServiceimpl implements UserService {
 
     @Autowired
+    private MD5Util md5Util;
+
+    @Autowired
     private UserMapper userMapper;
 
     @Autowired
@@ -39,12 +39,15 @@ public class UserServiceimpl implements UserService {
     @Override
     public Result login(String username, String password) {
 
+        System.out.println("zxc:  "+md5Util.encrypt("zxc"));
+        System.out.println("123123:  "+md5Util.encrypt("123123"));
+        System.out.println("testzxc:  "+md5Util.encrypt("testzxc"));
         System.out.println("service::: "+username+password);
         User user = userMapper.findbyUsername(username);
 
         if (user == null) return Result.build(null, ResultCodeEnum.USERNAME_ERROR);
 
-        if(user.getPassword().equals(password)){
+        if(user.getPassword().equals(md5Util.encrypt(password))){
             //登陆成功
             String token = jwtHelper.createToken((long) user.getId());
             Map data = new HashMap();
@@ -65,14 +68,14 @@ public class UserServiceimpl implements UserService {
     @Override
     public Result register(User user) {
         User user1 = userMapper.findbyUsername(user.getUsername());
-        System.out.println(user1);
+
         if(user1 == null) {
             user.setAvatar("/uploads/5-23/2aa0fb67-6bfd-479e-89c4-142ef99d2b35.jpg"); //默认头像
             user.setName(user.getUsername());   //默认名字
-            System.out.println("service"+user);
+            String pass = md5Util.encrypt(user.getPassword());
+            user.setPassword(pass);
             int insert = userMapper.insert(user);
             return Result.ok(insert);
-
         }
         else
             return Result.build(null, ResultCodeEnum.USERNAME_USED);

@@ -2,9 +2,12 @@ package com.shishuishuia.Service.impl;
 
 import com.shishuishuia.Service.HandphoneService;
 import com.shishuishuia.mapper.HandphoneMapper;
+import com.shishuishuia.mapper.PhonephotoMapper;
+import com.shishuishuia.mapper.PublishMapper;
 import com.shishuishuia.mapper.UserMapper;
 import com.shishuishuia.pojo.HandPhone;
 import com.shishuishuia.pojo.User;
+import com.shishuishuia.utils.FileStorageService;
 import com.shishuishuia.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +34,15 @@ public class HeadphoneServiceImpl implements HandphoneService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private PublishMapper publishMapper;
+
+    @Autowired
+    private PhonephotoMapper phonephotoMapper;
+    @Autowired
+    private FileStorageService fileStorageService;
+
     @Override
 
     public Result uploadHeadphone(long userId, HandPhone headphone) {
@@ -80,5 +92,15 @@ public class HeadphoneServiceImpl implements HandphoneService {
     public Result getHandphoneListBylocation(String location) {
         List<HandPhone> allByLocationHandPhones = handphoneMapper.getAllByLocationHandPhones(location);
         return Result.ok(allByLocationHandPhones);
+    }
+
+    @Override
+    public Result deleteHandphoneById(int id) {
+        int i1 = publishMapper.deleteByPhoneId(id);
+
+        int i2 = phonephotoMapper.deletephonephotoByphoneId(id);
+
+        int i = handphoneMapper.deleteHandphoneByid(id);
+        return Result.ok(Map.of("message","删除图片："+i2+" 删除手机： "+i ));
     }
 }

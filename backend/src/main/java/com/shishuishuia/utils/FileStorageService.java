@@ -72,4 +72,35 @@ public class FileStorageService {
         String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
         return UUID.randomUUID() + extension;
     }
+    public boolean deleteFileByUrl(String sURL) {
+        try {
+            // 1. 解析出相对路径（移除开头的"/uploads/"）
+            String relativePath = sURL.replaceFirst("^/uploads/", "");
+
+            // 2. 获取存储根路径（兼容开发和生产环境）
+            Path basePath = determineUploadPath();
+
+            // 3. 构建完整目标路径（带安全校验）
+            Path targetPath = basePath.resolve(relativePath)
+                    .normalize()
+                    .toAbsolutePath();
+
+            // 4. 安全校验：防止路径越权（例如sURL=../../etc/passwd）
+            if (!targetPath.startsWith(basePath)) {
+                throw new SecurityException("非法路径访问: " + sURL);
+            }
+
+            // 5. 执行删除
+            if (Files.exists(targetPath)) {
+                Files.delete(targetPath);
+                return true;
+            }
+            return false;
+
+        } catch (InvalidPathException e) {
+            throw new IllegalArgumentException("非法路径格式: " + sURL, e);
+        } catch (IOException e) {
+            throw new RuntimeException("文件删除失败: " + e.getMessage(), e);
+        }
+    }
 }

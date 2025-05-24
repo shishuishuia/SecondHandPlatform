@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shishuishuia.mapper.PhonephotoMapper">
+
+    <delete id="deletephonephotoByphoneId">
+        delete from phonephoto where id = #{phoneId}
+    </delete>
+    <select id="getPhonephotosByphoneId" resultType="java.lang.String">
+        select photo
+        from phonephoto
+        where id=#{phoneId}
+    </select>
+</mapper>

@@ -24,4 +24,5 @@ public interface HandphoneMapper {
     public List<HandPhone> getAllByLocationHandPhones(String location);
     public int updatephoneState(@Param("phoneId") int id, @Param("state") int state);
     public int updateBrowseInt(int id);
+    public int deleteHandphoneByid(int id);
 }

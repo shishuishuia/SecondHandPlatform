@@ -29,6 +29,9 @@
         set browse=browse+1
         where id =#{id}
     </update>
+    <delete id="deleteHandphoneByid">
+        delete from handphone where id = #{id}
+    </delete>
 
     <resultMap id="handphoneResultMap" type="com.shishuishuia.pojo.HandPhone">
         <id property="id" column="id"/>

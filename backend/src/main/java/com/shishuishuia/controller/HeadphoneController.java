@@ -112,4 +112,10 @@ public class HeadphoneController {
         return handphoneListBylocation;
     }
 
+    @DeleteMapping("delete/{productId}")
+    public Result deleteProductById(@PathVariable int productId){
+        Result result = handphoneService.deleteHandphoneById(productId);
+        return result;
+    }
+
 }
