@@ -2,8 +2,11 @@ package com.shishuishuia.Service;
 
 import com.shishuishuia.pojo.Orders;
 import com.shishuishuia.utils.Result;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 /**
  * @author 晓梦之尘
@@ -16,7 +19,10 @@ import java.math.BigDecimal;
 public interface OrderService {
     public Result createOrder(Orders orders);
     public Result getOrderDetailById(int id);
-    public Result getOrderListByBuyerId(int id);
-    public Result getOrderListBySellerId(int id);
+    public Result getOrderBuyerList(int userId, int pageNum, int pageSize, String status, String keyword, LocalDate startTime,LocalDate endTime);
+    public Result getOrderSellerList(int userId, int pageNum, int pageSize, String status, String keyword, LocalDate startTime,LocalDate endTime);
     public Result cancelOrder(int id);
+    public Result payOrderNow(int orderId);
+    public Result deliverProductNow(int orderId);
+    public Result confirmOrder(int orderId);
 }

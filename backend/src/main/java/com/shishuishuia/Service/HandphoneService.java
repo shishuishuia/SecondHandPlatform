@@ -17,4 +17,6 @@ public interface HandphoneService {
     public Result getDetailByphoneId(int id);
     public Result getHandphoneListBylocation(String location);
     public Result deleteHandphoneById(int id);
+
+    public Result searchProduct(String searchtext,String location);
 }

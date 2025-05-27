@@ -40,7 +40,10 @@
     </resultMap>
 
 
-    <insert id="createOrder" useGeneratedKeys="true" keyProperty="id">
+    <insert id="createOrder"
+            useGeneratedKeys="true"
+            keyColumn="order_id"
+            keyProperty="orderId">
         -- 插入新订单（仅需必要字段，其他字段自动填充）
         INSERT INTO orders (
             buyer_id,
@@ -58,6 +61,31 @@
     <update id="updateOrderStateInt">
         update orders
         set order_state=#{state}
+        where order_id=#{orderId}
+    </update>
+    <update id="updatePayTime">
+        update orders
+        set pay_time=#{payTime}
+        where order_id=#{orderId}
+    </update>
+    <update id="updatedeliverTime">
+        update orders
+        set deliver_time=#{deliverTime}
+        where order_id=#{orderId}
+    </update>
+    <update id="updateconfirmTime">
+        update orders
+        set confirm_time=#{confirmTime}
+        where order_id=#{orderId}
+    </update>
+    <update id="updatecancelTime">
+        update orders
+        set cancel_time=#{payTime}
+        where order_id=#{cancelTime}
+    </update>
+    <update id="updatefinishTime">
+        update orders
+        set finish_time=#{finishTime}
         where order_id=#{orderId}
     </update>
 
@@ -116,7 +144,7 @@
             GROUP_CONCAT(DISTINCT p.photo) AS photos
         FROM orders
                  INNER JOIN handphone h ON orders.phone_id = h.id
-                 INNER JOIN user u ON orders.seller_id = u.id
+                 INNER JOIN user u ON orders.buyer_id = u.id
                  INNER JOIN phonephoto p ON orders.phone_id = p.id
         WHERE seller_id = #{id} AND is_deleted=0
         GROUP BY orders.order_id;
@@ -125,6 +153,78 @@
         select *
         from orders
         where phone_id = #{id}
+    </select>
+    <select id="getBuyerOrderlist" resultMap="orderWithHandPhoneMap">
+        SELECT
+            orders.*,
+            h.state,
+            h.price,
+            h.browse,
+            h.publishedtime,
+            h.headline,
+            h.detail,
+            h.quality,
+            h.location,
+            u.avatar,
+            u.name,
+            (SELECT GROUP_CONCAT(p.photo) FROM phonephoto p WHERE p.id = orders.phone_id) AS photos
+        FROM orders
+                 INNER JOIN handphone h ON orders.phone_id = h.id
+                 INNER JOIN user u ON orders.seller_id = u.id
+        <where>
+            orders.buyer_id = #{userId}
+            AND orders.is_deleted = 0
+            <if test="status != null and status != ''">
+                AND orders.order_state = #{status}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (orders.order_id LIKE CONCAT('%', #{keyword}, '%')
+                OR h.headline LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="startTime != null">
+                AND orders.create_time >= #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND orders.create_time &lt;= #{endTime}
+            </if>
+        </where>
+        GROUP BY orders.order_id;
+    </select>
+    <select id="getSellerOrderlist" resultMap="orderWithHandPhoneMap">
+        SELECT
+            orders.*,
+            h.state,
+            h.price,
+            h.browse,
+            h.publishedtime,
+            h.headline,
+            h.detail,
+            h.quality,
+            h.location,
+            u.avatar,
+            u.name,
+            (SELECT GROUP_CONCAT(p.photo) FROM phonephoto p WHERE p.id = orders.phone_id) AS photos
+        FROM orders
+            INNER JOIN handphone h ON orders.phone_id = h.id
+            INNER JOIN user u ON orders.seller_id = u.id
+        <where>
+            orders.seller_id = #{userId}
+            AND orders.is_deleted = 0
+            <if test="status != null and status != ''">
+                AND orders.order_state = #{status}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (orders.order_id LIKE CONCAT('%', #{keyword}, '%')
+                OR h.headline LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="startTime != null">
+                AND orders.create_time >= #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND orders.create_time &lt;= #{endTime}
+            </if>
+        </where>
+        GROUP BY orders.order_id;
     </select>
 </mapper>
 

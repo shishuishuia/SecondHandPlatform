@@ -118,4 +118,14 @@ public class HeadphoneController {
         return result;
     }
 
+    @GetMapping("search")
+    public Result SearchProduct(
+            @RequestParam String searchtext,
+            @RequestParam String location){
+        Result result = handphoneService.searchProduct(searchtext, location);
+        System.out.println(result);
+        return result;
+
+    }
+
 }

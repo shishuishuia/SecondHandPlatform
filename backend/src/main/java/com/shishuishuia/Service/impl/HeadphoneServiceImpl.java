@@ -11,7 +11,6 @@ import com.shishuishuia.utils.FileStorageService;
 import com.shishuishuia.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +39,7 @@ public class HeadphoneServiceImpl implements HandphoneService {
 
     @Autowired
     private PhonephotoMapper phonephotoMapper;
+
     @Autowired
     private FileStorageService fileStorageService;
 
@@ -102,5 +102,11 @@ public class HeadphoneServiceImpl implements HandphoneService {
 
         int i = handphoneMapper.deleteHandphoneByid(id);
         return Result.ok(Map.of("message","删除图片："+i2+" 删除手机： "+i ));
+    }
+
+    @Override
+    public Result searchProduct(String searchtext, String location) {
+        List<HandPhone> handPhones = handphoneMapper.SearchHandphone(location, searchtext);
+        return Result.ok(handPhones);
     }
 }

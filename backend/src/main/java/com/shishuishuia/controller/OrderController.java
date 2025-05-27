@@ -5,9 +5,13 @@ import com.shishuishuia.pojo.Orders;
 import com.shishuishuia.utils.Result;
 import com.shishuishuia.utils.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Map;
+
+
 
 /**
  * @author 晓梦之尘
@@ -34,9 +38,18 @@ public class OrderController {
         return result;
     }
 
-    @GetMapping("buy/orderList/{id}")
-    public Result getBuyOrderListByBuyerId(@PathVariable int id){
-        Result orderListByBuyerId = orderService.getOrderListByBuyerId(id);
+    @GetMapping("buy/orderList")
+    public Result getBuyOrderListByBuyerId(
+            @RequestParam int userId,
+            @RequestParam(defaultValue = "1") int pageNum,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startTime,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endTime
+            ){
+        Result orderListByBuyerId = orderService.getOrderBuyerList(userId,pageNum,pageSize,status,keyword,startTime,endTime);
+        System.out.println(orderListByBuyerId);
         return orderListByBuyerId;
     }
     @GetMapping("buy/detail/{id}")
@@ -49,10 +62,18 @@ public class OrderController {
         Result orderDetailById = orderService.getOrderDetailById(id);
         return orderDetailById;
     }
-    @GetMapping("sell/orderList/{id}")
-    public Result getSellOrderListBySellerId(@PathVariable int id){
-        System.out.println(id);
-        Result orderListBySellerId = orderService.getOrderListBySellerId(id);
+    @GetMapping("sell/orderList")
+    public Result getSellOrderListBySellerId(
+            @RequestParam int userId,
+            @RequestParam(defaultValue = "1") int pageNum,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startTime,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endTime
+    ){
+        Result orderListBySellerId = orderService.getOrderSellerList(userId,pageNum,pageSize,status,keyword,startTime,endTime);
+        System.out.println(orderListBySellerId);
         return orderListBySellerId;
     }
     @PutMapping("cancel/{orderId}")
@@ -61,4 +82,20 @@ public class OrderController {
         Result result = orderService.cancelOrder(orderId);
         return result;
     }
+    @PutMapping("paynow/{orderId}")
+    public Result putOrderPayNow(@PathVariable int orderId){
+        Result result = orderService.payOrderNow(orderId);
+        return result;
+    }
+    @PutMapping("deliver/{orderId}")
+    public Result deli(@PathVariable int orderId){
+        Result result = orderService.deliverProductNow(orderId);
+        return result;
+    }
+    @PutMapping("confirm/{orderId}")
+    public Result confirm(@PathVariable int orderId){
+        Result result = orderService.confirmOrder(orderId);
+        return result;
+    }
+
 }

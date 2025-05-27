@@ -82,4 +82,16 @@
         GROUP BY
             h.id;
     </select>
+
+    <select id="SearchHandphone" resultMap="handphoneResultMap">
+        select h.*,
+               GROUP_CONCAT(p.photo) AS photos
+        from handphone h
+                 INNER JOIN phonephoto p ON h.id = p.id
+        where location = #{location}
+          and state = 0
+          and headline like concat('%', #{headline}, '%')
+        GROUP BY h.id;
+    </select>
+
 </mapper>
