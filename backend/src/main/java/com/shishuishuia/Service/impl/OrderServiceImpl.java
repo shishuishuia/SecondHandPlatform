@@ -119,4 +119,11 @@ public class OrderServiceImpl implements OrderService {
         return Result.ok(i);
     }
 
+    @Override
+    public Result deleteOrder(int orderId) {
+        int i = orderMapper.deleteByOrderIdInt(orderId);
+        return Result.ok(i);
+
+    }
+
 }

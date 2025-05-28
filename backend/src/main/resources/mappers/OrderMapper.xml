@@ -80,12 +80,17 @@
     </update>
     <update id="updatecancelTime">
         update orders
-        set cancel_time=#{payTime}
-        where order_id=#{cancelTime}
+        set cancel_time=#{cancelTime}
+        where order_id=#{orderId}
     </update>
     <update id="updatefinishTime">
         update orders
         set finish_time=#{finishTime}
+        where order_id=#{orderId}
+    </update>
+    <update id="deleteByOrderIdInt">
+        update orders
+        set is_deleted=1
         where order_id=#{orderId}
     </update>
 
@@ -206,7 +211,7 @@
             (SELECT GROUP_CONCAT(p.photo) FROM phonephoto p WHERE p.id = orders.phone_id) AS photos
         FROM orders
             INNER JOIN handphone h ON orders.phone_id = h.id
-            INNER JOIN user u ON orders.seller_id = u.id
+            INNER JOIN user u ON orders.buyer_id = u.id
         <where>
             orders.seller_id = #{userId}
             AND orders.is_deleted = 0

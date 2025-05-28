@@ -109,4 +109,10 @@ public class HeadphoneServiceImpl implements HandphoneService {
         List<HandPhone> handPhones = handphoneMapper.SearchHandphone(location, searchtext);
         return Result.ok(handPhones);
     }
+
+    @Override
+    public Result updateHandphoneDetailandheadline(HandPhone handPhone) {
+        int i = handphoneMapper.updateHandphoneInfo(handPhone);
+        return Result.ok(i);
+    }
 }

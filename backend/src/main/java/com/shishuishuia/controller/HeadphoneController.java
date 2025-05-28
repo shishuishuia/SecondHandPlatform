@@ -127,5 +127,10 @@ public class HeadphoneController {
         return result;
 
     }
+    @PostMapping("/handphoneinfo")
+    public Result updateHandphone(@RequestBody HandPhone handPhone){
+        Result result = handphoneService.updateHandphoneDetailandheadline(handPhone);
+        return result;
+    }
 
 }

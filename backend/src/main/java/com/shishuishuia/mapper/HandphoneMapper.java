@@ -27,4 +27,7 @@ public interface HandphoneMapper {
     public int deleteHandphoneByid(int id);
     public List<HandPhone> SearchHandphone(@Param("location")String location,@Param("headline") String headline);
 
+    //更新 标题， 详细 价格
+    public int updateHandphoneInfo(HandPhone handPhone);
+
 }

@@ -38,5 +38,6 @@ public interface OrderMapper {
     public int updateconfirmTime(@Param("orderId")int orderId,@Param("confirmTime") LocalDate confirmTime);
     public int updatecancelTime(@Param("orderId")int orderId,@Param("cancelTime") LocalDate cancelTime);
     public int updatefinishTime(@Param("orderId")int orderId,@Param("finishTime") LocalDate finishTime);
+    public int deleteByOrderIdInt(int orderId);
 
 }

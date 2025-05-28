@@ -29,6 +29,21 @@
         set browse=browse+1
         where id =#{id}
     </update>
+    <update id="updateHandphoneInfo">
+        UPDATE handphone
+        <set>
+            <if test="headline != null and headline != ''">
+                headline = #{headline},
+            </if>
+            <if test="price != null and price != ''">
+                price = #{price},
+            </if>
+            <if test="detail != null and detail != ''">
+                detail = #{detail}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
     <delete id="deleteHandphoneByid">
         delete from handphone where id = #{id}
     </delete>

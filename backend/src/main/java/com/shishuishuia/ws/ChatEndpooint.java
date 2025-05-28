@@ -10,12 +10,14 @@ import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+@CrossOrigin("http://localhost:8080")
 @Component
 @ServerEndpoint(value = "/chat", configurator = GetHttpSessionConfig.class)
 public class ChatEndpooint {

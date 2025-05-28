@@ -97,5 +97,10 @@ public class OrderController {
         Result result = orderService.confirmOrder(orderId);
         return result;
     }
+    @PutMapping("delete/{orderId}")
+    public Result deleteOrder(@PathVariable int orderId){
+        Result result = orderService.deleteOrder(orderId);
+        return result;
+    }
 
 }

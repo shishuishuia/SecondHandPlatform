@@ -25,4 +25,5 @@ public interface OrderService {
     public Result payOrderNow(int orderId);
     public Result deliverProductNow(int orderId);
     public Result confirmOrder(int orderId);
+    public Result deleteOrder(int orderId);
 }
