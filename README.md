@@ -1,6 +1,8 @@
 ## 同城二手手机交易平台
 
 ### 技术栈
+#### 数据库 
+mysql 8.0.33
 #### 后端
 
 Springboot3  java17  druid  MyBatis  websocket 
@@ -20,8 +22,6 @@ element-plus   vue3  Axios i
     data:{
         xxxxx
     }
-
-
 }
 
 ```
